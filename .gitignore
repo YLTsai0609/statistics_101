@@ -1,0 +1,11 @@
+# hidden staff
+.DS_Store
+.ipynb_checkpoints/
+# __pycache__
+/__pycache__/*
+
+# vscode setting
+/.vscode/*
+
+# 
+/report/*
