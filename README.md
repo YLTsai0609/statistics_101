@@ -24,6 +24,10 @@ yulong's note about statistics.
 
 # Statistical Modeling
 
+* [ ] likelihood & maximmum lilelihood
+  * [x] recap the theorem
+  * [ ] scipy
+  * [ ] tensorflow-probability
 * [ ] demand curve forcasting in airbnb
 * [ ] preference trainsition model in spotify
 * [ ] topic modeling by tfp
