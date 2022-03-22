@@ -29,6 +29,9 @@ cf.go_offline(connected=True)
 init_notebook_mode(connected=True)
 import matplotlib.pyplot as plt
 import seaborn as sns
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+warnings.simplefilter(action='ignore', category=UserWarning)
 # %matplotlib inline
 # -
 
@@ -124,5 +127,89 @@ for i,sample_size in enumerate(result):
 #     無論原本分佈是什麼分佈，該**均值分佈**會符合高斯分佈
 #     
 #     這也就是 Central Limit Theorem(CLT)的威力
+
+# # Additional
+#
+# * exponential dist / bi-norm dist
+
+# +
+# exp, population_size = 20000
+
+
+exp_population = [random.expovariate(10) for _ in range(20000)]
+
+
+def make_n_peak_population(params : list):
+    dist = []
+    for p in params:
+        mu,sigma,pop = p['mu'], p['sigma'], p['pop']
+        dist.extend(
+            [
+                random.gauss(mu, sigma)
+                for _ 
+                in range(pop)
+            ]
+        )
+    return dist
+
+bi_norm_dist = make_n_peak_population(params=[
+    {'mu':10,'sigma':5,'pop':20000},
+    {'mu':200,'sigma':20,'pop':20000},
+])
+
+
+skew_bi_norm_dist = make_n_peak_population(params=[
+    {'mu':10,'sigma':5,'pop':50},
+    {'mu':200,'sigma':20,'pop':3000}, # factor = 6
+])
+
+print(exp_population[:20], np.mean(exp_population), sep='\n\n')
+print()
+print(bi_norm_dist[:20],np.mean(bi_norm_dist),sep='\n\n')
+print()
+print(skew_bi_norm_dist[:20],np.mean(skew_bi_norm_dist),sep='\n\n')
+
+
+# +
+def boostraping_plot(
+    dist : np.array,
+    mark : str,
+    sample_size_list : list,
+    n_trails : int = 10) -> None:
+    result = {}
+    for sample_size in sample_size_list:
+        l = []
+        for _ in range(n_trails):
+            x_bar = sum(random.sample(dist,sample_size))/sample_size
+            l.append(x_bar)
+        result[sample_size] = l
+
+    for i,sample_size in enumerate(result):
+        plt.figure()
+        p = sns.distplot(result[sample_size],)
+        p.set(title=f'dist : {mark}, sample_size : {sample_size}, n_trails : {n_trails}')
+    
+    
+sample_size_list = [10,50,100,200,500]
+n_trails = [3,5,10]
+
+for dist,mark in zip(
+    [
+        exp_population,
+        bi_norm_dist,
+        skew_bi_norm_dist
+    ],
+    [
+        'exp',
+        'bi_norm',
+        'skew_bi_norm'
+    ]
+    ):
+    for t in n_trails:
+        boostraping_plot(dist=dist,
+                         mark=mark,
+                         sample_size_list=sample_size_list,
+                         n_trails=t)
+# -
 
 

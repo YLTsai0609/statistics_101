@@ -4,7 +4,6 @@ yulong's note about statistics.
 
 # Base
 
-* [x] central limit theorem
 
 ## Distrubution
 
@@ -21,6 +20,7 @@ yulong's note about statistics.
 * [x] - binominal distribution
 * [x] - multi-bernolli distribution(cateogirical distribution)
 * [x] - multi-nomial distribution
+* [x] - central limit theorem
 
 # Statistical Modeling
 
@@ -55,3 +55,5 @@ https://github.com/YLTsai0609/bayesian_analysis_python
 * including topic modeling
 
 [topic modeling by tfp](https://github.com/tensorflow/probability/blob/main/tensorflow_probability/examples/latent_dirichlet_allocation_distributions.py)
+
+[python statistics](https://github.com/thomas-haslwanter/statsintro_python)
