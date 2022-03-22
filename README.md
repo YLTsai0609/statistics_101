@@ -21,6 +21,7 @@ yulong's note about statistics.
 * [x] - multi-bernolli distribution(cateogirical distribution)
 * [x] - multi-nomial distribution
 * [x] - central limit theorem
+* [ ] 
 
 # Statistical Modeling
 
